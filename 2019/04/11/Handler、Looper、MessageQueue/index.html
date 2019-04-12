@@ -105,7 +105,7 @@
 <meta property="og:site_name" content="码玩空间">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://fishwjy.github.io/2019/04/11/Handler、Looper、MessageQueue/BlackHole.png">
-<meta property="og:updated_time" content="2019-04-12T10:09:01.636Z">
+<meta property="og:updated_time" content="2019-04-12T10:39:02.046Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="速记节点 -- Handler、Looper、MessageQueue">
 <meta name="twitter:image" content="https://fishwjy.github.io/2019/04/11/Handler、Looper、MessageQueue/BlackHole.png">
@@ -382,7 +382,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-12 18:09:01" itemprop="dateModified" datetime="2019-04-12T18:09:01+08:00">2019-04-12</time>
+                <time title="修改时间：2019-04-12 18:39:02" itemprop="dateModified" datetime="2019-04-12T18:39:02+08:00">2019-04-12</time>
               
             
           </span>
@@ -455,7 +455,7 @@
 <p>推荐阅读：<a href="https://blog.csdn.net/singwhatiwanna/article/details/17596225" target="_blank" rel="noopener">Android源码分析—带你认识不一样的AsyncTask</a></p>
 </blockquote>
 <h2 id="HandlerThread"><a href="#HandlerThread" class="headerlink" title="HandlerThread"></a>HandlerThread</h2><p>HandlerThread封装了Looper和Handler的Thread子类。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">HandlerThread handlerThread = <span class="keyword">new</span> HandlerThread(<span class="string">"Newtwork Opeartion"</span>, Process.THREAD_PRIORITY_BACKGROUND);</span><br><span class="line">handlerThread.start();</span><br><span class="line"></span><br><span class="line">Handler handler = <span class="keyword">new</span> Handler(handlerThread.getLooper())&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// network opeartion</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">handler.post(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// start network operation</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">HandlerThread handlerThread = <span class="keyword">new</span> HandlerThread(<span class="string">"Newtwork Opeartion"</span>, Process.THREAD_PRIORITY_BACKGROUND);</span><br><span class="line">handlerThread.start();</span><br><span class="line"></span><br><span class="line">Handler handler = <span class="keyword">new</span> Handler(handlerThread.getLooper())&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// network opeartion</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">handler.sendMessage(handler.obtainMessage());</span><br></pre></td></tr></table></figure>
 <ul>
 <li>所有消息串行执行</li>
 <li>不调用quit()或者quitSafely()将一直存在(线程中的Looper一直循环)</li>
